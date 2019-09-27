@@ -60,7 +60,7 @@ router.post('/', [
     try {
       await user.save();
       res.location('/');
-    // Set the status to 201 Created and end the response.
+    // Sets the status to 201 creates and end the response.
       res.status(201).end();
     } catch (err) {
       if(err.name === 'SequelizeValidationError') {

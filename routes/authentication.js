@@ -1,13 +1,11 @@
 const auth = require('basic-auth');
 const bcryptjs = require('bcryptjs');
 const {User} = require('../models');
-// const express = require('express');
-// const router = express.Router();
 
 const authenticateUser = async (req, res, next) => {
     let message = null;
   
-    // Parse the user's credentials from the Authorization header.
+    // The user's credentials from the Authorization header.
     const credentials = auth(req);
   
     // If the user's credentials are available...
@@ -20,7 +18,7 @@ const authenticateUser = async (req, res, next) => {
           where: {emailAddress: credentials.name}
         });
   
-      // If a user was successfully retrieved from the data store...
+      // If a user successfully retrieves from the data store...
       if (user) {
         // Use the bcryptjs npm package to compare the user's password
         // (from the Authorization header) to the user's password
@@ -32,7 +30,7 @@ const authenticateUser = async (req, res, next) => {
         if (authenticated) {
           console.log(`Authentication successful for username: ${user.emailAddress}`);
 
-          // Then store the retrieved user object on the request object
+          // The store the retrieved user object on the request object
           // so any middleware functions that follow this middleware function
           // will have access to the user's information.
           req.currentUser = user;
@@ -54,18 +52,9 @@ const authenticateUser = async (req, res, next) => {
       // Return a response with a 401 Unauthorized HTTP status code.
       res.status(401).json({ message: 'Access Denied' });
     } else {
-      // Or if user authentication succeeded...
-      // Call the next() method.
+      //the next() method.
       next();
     }
   };
-
-// router.get('/', authenticateUser, (req, res) => {
-//     const user = req.currentUser;
-//     res.json({
-//         name: user.name,
-//         username: user.emailAddress
-//     })
-// })
 
 module.exports = authenticateUser;

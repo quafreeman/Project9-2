@@ -24,7 +24,7 @@ router.get('/', (req, res, next)=>{
   }).catch(err => res.json({message: err.message}));
 });
 
-// Send a GET request to /courses/:id to READ(view) a course (including the user that owns the course) for the provided course ID
+// Send a GET request to /courses/:id to READ(view) for the provided course ID
 router.get('/:id', (req, res, next)=>{
   Course.findByPk(req.params.id, filterOut)
   .then(course => {
@@ -131,7 +131,7 @@ router.put('/:id', [
   }
 });
 
-// Send a DELETE request to /courses/:id DELETE a course and returns no content
+// Sends a DELETE request to /courses/:id DELETE a course and returns no content
 router.delete("/:id", authenticateUser, (req, res, next) => {
   const user = req.currentUser;
   Course.findByPk(req.params.id).then((course) => {
